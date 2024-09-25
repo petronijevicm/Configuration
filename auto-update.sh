@@ -1,4 +1,5 @@
 #!/bin/bash
+#require_sudo
 # Auto update script - updates system on startup to make sure security updates are applied in shortest amount of time
 # Define variables
 SERVICE_PATH="/etc/systemd/system/update_script.service"
