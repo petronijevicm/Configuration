@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#require_sudo
 # Script adds StevenBlacks host file into system and caches old one in hosts.bak, it also changes 0.0.0.0 to 127.0.0.1 for security reasons
 URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts"
 TEMP_FILE="/tmp/hosts_temp"
