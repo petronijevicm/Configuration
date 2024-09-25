@@ -1,5 +1,36 @@
 #!/bin/bash
 
+# Function to remove swap files
+remove_swap() {
+    # Check for active swap files
+    if swapon --show=NAME | grep -q .; then
+        echo "Disabling and removing swap files..."
+        sudo swapoff -a  # Disable all swap
+        if [[ $? -ne 0 ]]; then
+            echo "Error: Failed to disable swap."
+            exit 1
+        fi
+        
+        # Remove swap files (assuming they are in /swapfile or /etc/fstab)
+        # You may need to adjust this based on your system configuration
+        if [[ -f /swapfile ]]; then
+            sudo rm /swapfile
+            echo "Removed /swapfile."
+        fi
+        
+        # Check for swap entries in /etc/fstab and remove them
+        if grep -q '/swapfile' /etc/fstab; then
+            sudo sed -i '/\/swapfile/d' /etc/fstab
+            echo "Removed swap entry from /etc/fstab."
+        fi
+    else
+        echo "No active swap files found."
+    fi
+}
+
+# Remove swap if it exists
+remove_swap
+
 # Create a temporary directory in RAM
 TEMP_DIR=$(mktemp -d -t ci-XXXXXXXXXX)
 if [[ ! -d "$TEMP_DIR" ]]; then
@@ -46,4 +77,3 @@ done
 
 # Clean up: remove the temporary directory
 rm -rf "$TEMP_DIR"
-
