@@ -1,5 +1,6 @@
-# This Part of the script calls NextDNS server to update Linked-ip whenever network(VPN) reconnects
 #!/bin/bash
+#require_sudo
+# This Part of the script calls NextDNS server to update Linked-ip whenever network(VPN) reconnects
 DISPATCHER_SCRIPT="/etc/NetworkManager/dispatcher.d/99-nextdns-link"
 
 sudo bash -c "cat > $DISPATCHER_SCRIPT" << 'EOF'
